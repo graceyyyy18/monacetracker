@@ -1,0 +1,7 @@
+{
+  "name": "MonaceTracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
