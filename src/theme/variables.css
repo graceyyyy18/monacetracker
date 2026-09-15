@@ -1,2 +1,89 @@
-/* For information on how to create your own theme, please refer to:
-http://ionicframework.com/docs/theming/ */
+:root {
+  --ion-color-primary: #7c3aed;
+  --ion-color-primary-rgb: 124, 58, 237;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-shade: #6d28d9;
+  --ion-color-primary-tint: #8b5cf6;
+
+  --ion-background-color: #f8f7fc;
+  --ion-background-color-rgb: 248, 247, 252;
+  --ion-text-color: #1e1b4b;
+  --ion-text-color-rgb: 30, 27, 75;
+
+  --ion-item-background: #ffffff;
+  --ion-item-border-color: #e5e7eb;
+  --ion-toolbar-background: #ffffff;
+  --ion-toolbar-text-color: #1e1b4b;
+}
+
+html, body {
+  background: #f8f7fc;
+  color: var(--ion-text-color);
+  font-family: Inter, 'Segoe UI', sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+ion-app {
+  background: #f8f7fc;
+}
+
+ion-page {
+  background: transparent;
+}
+
+ion-toolbar {
+  --background: rgba(255, 255, 255, 0.92);
+  --border-color: #e5e7eb;
+  --color: #1e1b4b;
+}
+
+ion-item {
+  --background: #ffffff;
+  --color: #1e1b4b;
+  --border-radius: 16px;
+  --inner-border-width: 0;
+  --padding-start: 14px;
+  --padding-end: 14px;
+  margin-bottom: 12px;
+  border-radius: 16px;
+}
+
+ion-input,
+ion-textarea,
+ion-select {
+  --color: #1e1b4b;
+  --placeholder-color: #9ca3af;
+  --highlight-color-focused: #7c3aed;
+  color: #1e1b4b;
+}
+
+ion-button {
+  --border-radius: 14px;
+  --box-shadow: none;
+}
+
+ion-searchbar {
+  --background: #ffffff;
+  --color: #1e1b4b;
+  --placeholder-color: #9ca3af;
+  --icon-color: #6b7280;
+  --clear-button-color: #6b7280;
+  border-radius: 16px;
+}
+
+ion-modal {
+  --background: #ffffff;
+}
+
+ion-content {
+  --background: #f8f7fc;
+}
+
+ion-title {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+

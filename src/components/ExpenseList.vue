@@ -2,22 +2,27 @@
   <div class="expense-list">
     <div v-for="expense in expenses" :key="expense.id" class="expense-card">
       <div class="expense-icon">
-        {{ getCategoryIcon(expense.category) }}
+        <ion-icon :icon="getCategoryIcon(expense.category)" :aria-label="`${expense.category} category`" />
       </div>
 
       <div class="expense-details">
         <h2>{{ expense.expenseName }}</h2>
-        <p>{{ expense.category }} • {{ expense.date }}</p>
+        <div class="meta-row">
+          <span class="meta-pill">{{ expense.category }}</span>
+          <span class="meta-date">{{ expense.date }}</span>
+        </div>
         <p v-if="expense.notes" class="notes">{{ expense.notes }}</p>
       </div>
 
       <div class="expense-actions">
         <strong>₱{{ formatMoney(expense.amount) }}</strong>
-        <div>
-          <ion-button fill="clear" size="small" @click="emit('edit', expense)">
+        <div class="button-row">
+          <ion-button fill="clear" size="small" aria-label="Edit expense" @click="emit('edit', expense)">
+            <ion-icon :icon="createOutline" slot="start" />
             Edit
           </ion-button>
-          <ion-button fill="clear" color="danger" size="small" @click="emit('delete', expense.id)">
+          <ion-button fill="clear" color="danger" size="small" aria-label="Delete expense" @click="emit('delete', expense.id)">
+            <ion-icon :icon="trashOutline" slot="start" />
             Delete
           </ion-button>
         </div>
@@ -33,7 +38,18 @@
 </template>
 
 <script setup lang="ts">
-import { IonButton } from '@ionic/vue'
+import { IonButton, IonIcon } from '@ionic/vue'
+import {
+  bagHandleOutline,
+  carOutline,
+  createOutline,
+  gameControllerOutline,
+  medicalOutline,
+  receiptOutline,
+  restaurantOutline,
+  trashOutline,
+  walletOutline,
+} from 'ionicons/icons'
 
 interface Expense {
   id: string
@@ -62,18 +78,18 @@ const formatMoney = (amount: number) => {
 }
 
 const getCategoryIcon = (category: string) => {
-  const icons: Record<string, string> = {
-    Food: '🍔',
-    Transportation: '🚌',
-    Bills: '💡',
-    Shopping: '🛍️',
-    School: '🎓',
-    Entertainment: '🎮',
-    Health: '💊',
-    Others: '📦',
+  const icons = {
+    Food: restaurantOutline,
+    Transportation: carOutline,
+    Bills: receiptOutline,
+    Shopping: bagHandleOutline,
+    School: receiptOutline,
+    Entertainment: gameControllerOutline,
+    Health: medicalOutline,
+    Others: walletOutline,
   }
 
-  return icons[category] || '💰'
+  return icons[category as keyof typeof icons] || walletOutline
 }
 </script>
 
@@ -90,20 +106,33 @@ const getCategoryIcon = (category: string) => {
   align-items: center;
   gap: 14px;
   padding: 16px;
-  background: white;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 16px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 24px rgba(30, 27, 75, 0.06);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.expense-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(30, 27, 75, 0.1);
 }
 
 .expense-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 13px;
-  background: #f1f5f9;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #f3e8ff;
+  border: 1px solid #e9d5ff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 22px;
+}
+
+.expense-icon ion-icon {
+  color: #7c3aed;
+  font-size: 1.3rem;
 }
 
 .expense-details {
@@ -112,17 +141,42 @@ const getCategoryIcon = (category: string) => {
 
 .expense-details h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: 1.05rem;
+  color: #1e1b4b;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.meta-pill {
+  background: #f3e8ff;
+  color: #6d28d9;
+  border: 1px solid #e9d5ff;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.meta-date {
+  color: #6b7280;
+  font-size: 0.76rem;
 }
 
 .expense-details p {
-  margin: 5px 0 0;
-  color: #777;
-  font-size: 13px;
+  margin: 8px 0 0;
+  color: #6b7280;
+  font-size: 0.8rem;
 }
 
 .expense-details .notes {
-  color: #999;
+  color: #6b7280;
 }
 
 .expense-actions {
@@ -131,31 +185,65 @@ const getCategoryIcon = (category: string) => {
 
 .expense-actions strong {
   display: block;
-  color: #dc2626;
-  font-size: 16px;
+  color: #4f46e5;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.button-row ion-button {
+  --color: #7c3aed;
+  --padding-start: 8px;
+  --padding-end: 8px;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.button-row ion-button[color='danger'] {
+  --color: #ef4444;
 }
 
 .empty-state {
   text-align: center;
-  padding: 50px 20px;
-  color: #777;
+  padding: 56px 20px 32px;
+  color: #6b7280;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(30, 27, 75, 0.06);
 }
 
 .empty-icon {
-  font-size: 45px;
+  font-size: 42px;
 }
 
 .empty-state h2 {
-  color: #333;
+  color: #1e1b4b;
 }
 
 @media (max-width: 600px) {
   .expense-card {
     align-items: flex-start;
+    flex-wrap: wrap;
   }
 
   .expense-actions {
-    min-width: 105px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 62px;
+    text-align: left;
+  }
+
+  .expense-actions strong {
+    margin-bottom: 0;
   }
 }
 </style>

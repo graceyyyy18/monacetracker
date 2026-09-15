@@ -33,7 +33,12 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
+  const activeElement = document.activeElement
+  if (activeElement instanceof HTMLElement) {
+    activeElement.blur()
+  }
+
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
   const isAuthenticated = !!auth.currentUser
 

@@ -1,10 +1,19 @@
 import { mount } from '@vue/test-utils'
 import HomePage from '@/views/HomePage.vue'
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
+
+vi.mock('vue-router', () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+  }),
+}))
 
 describe('HomePage.vue', () => {
-  test('renders home vue', () => {
+  test('renders the expense dashboard', () => {
     const wrapper = mount(HomePage)
-    expect(wrapper.text()).toMatch('Ready to create an app?')
+    expect(wrapper.text()).toContain('Good evening')
+    expect(wrapper.text()).toContain('Total transactions')
+    expect(wrapper.text()).toContain('Recent expenses')
   })
 })
