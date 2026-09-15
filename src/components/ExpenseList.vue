@@ -136,6 +136,7 @@ const getCategoryIcon = (category: string) => {
 }
 
 .expense-details {
+  min-width: 0;
   flex: 1;
 }
 
@@ -236,14 +237,30 @@ const getCategoryIcon = (category: string) => {
   .expense-actions {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
     width: 100%;
     padding-left: 62px;
     text-align: left;
   }
 
   .expense-actions strong {
+    width: 100%;
     margin-bottom: 0;
+    font-size: clamp(1rem, 5vw, 1.18rem);
+  }
+
+  .button-row {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .button-row ion-button {
+    min-height: 34px;
+    --padding-start: 6px;
+    --padding-end: 6px;
+    font-size: 0.72rem;
   }
 }
 </style>

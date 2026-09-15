@@ -735,7 +735,13 @@ ion-fab-button {
 }
 
 @media (max-width: 767px) {
+  ion-content {
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
+
   .header-brand {
+    min-width: 0;
     padding-left: 12px;
   }
 
@@ -743,8 +749,16 @@ ion-fab-button {
     display: none;
   }
 
+  .brand-copy span {
+    display: block;
+    max-width: 142px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .header-user {
-    max-width: 82px;
+    max-width: 72px;
     margin-right: 2px;
     gap: 5px;
     font-size: 0.7rem;
@@ -770,6 +784,12 @@ ion-fab-button {
   .logout-button span {
     margin-left: 4px;
     font-size: 0.7rem;
+  }
+
+  .dashboard-intro h1 {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    font-size: clamp(1.55rem, 7vw, 2rem);
   }
 
   .dashboard-shell {
